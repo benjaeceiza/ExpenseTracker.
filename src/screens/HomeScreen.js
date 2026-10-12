@@ -18,7 +18,7 @@ const HomeScreen = () => {
                 </Text>
             </View>
 
-            <StatusBar style="auto" />
+            <StatusBar style="light" />
         </View>
     );
 };

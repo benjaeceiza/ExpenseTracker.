@@ -6,21 +6,23 @@ const NewExpenseModal = () => {
     const [nombre, setNombre] = useState('');
     const [monto, setMonto] = useState(''); 
     const [categoria, setCategoria] = useState('');
+    const [descripcion, setDescripcion] = useState(''); 
     const [error, setError] = useState('');
 
     const onHandleSave = () => {
+
         if (!nombre || !monto || !categoria) {
-            setError('Por favor, complete todos los campos.');
+            setError('Por favor, complete todos los campos obligatorios.');
             return;
         }
         setError('');
 
         alert(`Gasto guardado: ${nombre} - $${monto}`);
 
-
         setNombre('');
         setMonto('');
         setCategoria('');
+        setDescripcion('');
     };
 
     return (
@@ -30,18 +32,19 @@ const NewExpenseModal = () => {
             </View>
 
             <View style={styles.card}>
+
                 <TextInput 
                     value={nombre} 
                     onChangeText={setNombre} 
                     style={styles.input} 
-                    placeholder='Nombre del gasto' 
+                    placeholder='Nombre del gasto *' 
                     placeholderTextColor="#9CA3AF"
                 />
                 <TextInput 
                     value={monto} 
                     onChangeText={setMonto} 
                     style={styles.input} 
-                    placeholder='Monto (ej. 1500)' 
+                    placeholder='Monto (ej. 1500) *' 
                     keyboardType="numeric" 
                     placeholderTextColor="#9CA3AF"
                 />
@@ -49,8 +52,18 @@ const NewExpenseModal = () => {
                     value={categoria} 
                     onChangeText={setCategoria} 
                     style={styles.input} 
-                    placeholder='Categoría (ej. Comida, Transporte)' 
+                    placeholder='Categoría (ej. Comida) *' 
                     placeholderTextColor="#9CA3AF"
+                />
+                
+                <TextInput 
+                    value={descripcion} 
+                    onChangeText={setDescripcion} 
+                    style={[styles.input, styles.textArea]} 
+                    placeholder='Descripción (Opcional)' 
+                    placeholderTextColor="#9CA3AF"
+                    multiline={true} 
+                    numberOfLines={3} 
                 />
 
                 <TouchableOpacity style={styles.saveButton} onPress={onHandleSave}>
@@ -60,7 +73,7 @@ const NewExpenseModal = () => {
                 {error ? <Text style={styles.errorText}>{error}</Text> : null}
             </View>
 
-            <StatusBar style="auto" />
+            <StatusBar style="light" />
         </View>
     );
 };
@@ -81,7 +94,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 36,
         fontWeight: 'bold',
-        color: '#10B981', 
+        color: '#10B981',
         letterSpacing: 0.5,
     },
     card: {
@@ -96,18 +109,22 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     input: {
-        backgroundColor: '#F9FAFB', 
+        backgroundColor: '#F9FAFB',
         borderWidth: 1,
         borderColor: '#E5E7EB',
-        borderRadius: 12, 
+        borderRadius: 12,
         paddingVertical: 14,
         paddingHorizontal: 16,
         marginBottom: 16,
         fontSize: 16,
         color: '#1F2937',
     },
+    textArea: {
+        minHeight: 80, 
+        textAlignVertical: 'top',
+    },
     saveButton: {
-        backgroundColor: '#10B981', 
+        backgroundColor: '#10B981',
         borderRadius: 12,
         paddingVertical: 15,
         alignItems: 'center',
