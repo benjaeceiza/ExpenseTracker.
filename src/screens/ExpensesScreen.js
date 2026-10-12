@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-
+import { useNavigation } from '@react-navigation/native';
+import ExpenseCard from '../components/ExpenseCard';
 
 const expenses = [
     { id: 1, nombre: 'Supermercado', monto: 25000, categoria: 'Compras', descripcion: 'Compra mensual de alimentos' },
@@ -9,34 +10,24 @@ const expenses = [
 ];
 
 const ExpensesScreen = () => {
+    const navigation = useNavigation(); 
+
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
                 <Text style={styles.title}>Gastos Recientes</Text>
-                <Pressable style={styles.addButton} onPress={() => alert('Agregar nuevo gasto')}>
+                <Pressable style={styles.addButton} onPress={() => navigation.navigate('NewExpense')}>
                     <Text style={styles.addButtonText}>+</Text>
                 </Pressable>
             </View>
 
-         
             <ScrollView contentContainerStyle={styles.listContainer}>
                 {expenses.map((expense) => (
-                    <View key={expense.id} style={styles.expenseItem}>
-              
-                        <View style={styles.expenseHeaderRow}>
-                            <Text style={styles.expenseName}>{expense.nombre}</Text>
-                            <Text style={styles.expenseAmount}>${expense.monto}</Text>
-                        </View>
-                        
-                        <Text style={styles.expenseCategory}>{expense.categoria}</Text>
-                        
-                 
-                        <Text style={styles.expenseDescription}>{expense.descripcion}</Text>
-                    </View>
+                    <ExpenseCard key={expense.id} expense={expense} />
                 ))}
             </ScrollView>
             
-            <StatusBar style="light"/>
+            <StatusBar style="light" translucent={true} backgroundColor="transparent" />
         </View>
     );
 };
@@ -79,42 +70,5 @@ const styles = StyleSheet.create({
     listContainer: {
         padding: 20,
         paddingBottom: 40, 
-    },
-    expenseItem: {
-        backgroundColor: '#fff',
-        padding: 18,
-        marginBottom: 15,
-        borderRadius: 12, 
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
-    },
-    expenseHeaderRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        marginBottom: 6,
-    },
-    expenseName: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#1F2937',
-    },
-    expenseAmount: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#EF4444', 
-    },
-    expenseCategory: {
-        fontSize: 14,
-        color: '#10B981',
-        fontWeight: '600',
-        marginBottom: 4,
-    },
-    expenseDescription: {
-        fontSize: 14,
-        color: '#6B7280',
     }
 });

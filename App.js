@@ -1,16 +1,10 @@
-import ExpensesScreen from "./src/screens/ExpensesScreen";
-import HomeScreen from "./src/screens/HomeScreen";
-import NewExpenseModal from "./src/screens/NewExpenseModal";
-
+import { NavigationContainer } from '@react-navigation/native';
+import StackNavigator from './src/navigation/StackNavigator';
 
 export default function App() {
   return (
-    <>
-     {/* <NewExpenseModal/> */}
-     {/* <HomeScreen/> */}
-     <ExpensesScreen/>
-    </>
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
   );
 }
-
-
